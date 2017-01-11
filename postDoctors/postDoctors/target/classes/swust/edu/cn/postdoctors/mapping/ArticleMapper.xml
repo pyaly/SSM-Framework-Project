@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="swust.edu.cn.postdoctors.dao.ArticleMapper" >
+  <resultMap id="BaseResultMap" type="swust.edu.cn.postdoctors.model.Article" >
+    <id column="arti_id" property="artiId" jdbcType="INTEGER" />
+    <result column="arti_colmId" property="artiColmid" jdbcType="INTEGER" />
+    <result column="arti_title" property="artiTitle" jdbcType="VARCHAR" />
+    <result column="arti_author" property="artiAuthor" jdbcType="VARCHAR" />
+    <result column="arti_date" property="artiDate" jdbcType="TIMESTAMP" />
+    <result column="arti_state" property="artiState" jdbcType="BIT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="swust.edu.cn.postdoctors.model.Article" extends="BaseResultMap" >
+    <result column="arti_content" property="artiContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    arti_id, arti_colmId, arti_title, arti_author, arti_date, arti_state
+  </sql>
+  <sql id="Blob_Column_List" >
+    arti_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from article
+    where arti_id = #{artiId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from article
+    where arti_id = #{artiId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="swust.edu.cn.postdoctors.model.Article" >
+    insert into article (arti_id, arti_colmId, arti_title, 
+      arti_author, arti_date, arti_state, 
+      arti_content)
+    values (#{artiId,jdbcType=INTEGER}, #{artiColmid,jdbcType=INTEGER}, #{artiTitle,jdbcType=VARCHAR}, 
+      #{artiAuthor,jdbcType=VARCHAR}, #{artiDate,jdbcType=TIMESTAMP}, #{artiState,jdbcType=BIT}, 
+      #{artiContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="swust.edu.cn.postdoctors.model.Article" >
+    insert into article
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="artiId != null" >
+        arti_id,
+      </if>
+      <if test="artiColmid != null" >
+        arti_colmId,
+      </if>
+      <if test="artiTitle != null" >
+        arti_title,
+      </if>
+      <if test="artiAuthor != null" >
+        arti_author,
+      </if>
+      <if test="artiDate != null" >
+        arti_date,
+      </if>
+      <if test="artiState != null" >
+        arti_state,
+      </if>
+      <if test="artiContent != null" >
+        arti_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="artiId != null" >
+        #{artiId,jdbcType=INTEGER},
+      </if>
+      <if test="artiColmid != null" >
+        #{artiColmid,jdbcType=INTEGER},
+      </if>
+      <if test="artiTitle != null" >
+        #{artiTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="artiAuthor != null" >
+        #{artiAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="artiDate != null" >
+        #{artiDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="artiState != null" >
+        #{artiState,jdbcType=BIT},
+      </if>
+      <if test="artiContent != null" >
+        #{artiContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="swust.edu.cn.postdoctors.model.Article" >
+    update article
+    <set >
+      <if test="artiColmid != null" >
+        arti_colmId = #{artiColmid,jdbcType=INTEGER},
+      </if>
+      <if test="artiTitle != null" >
+        arti_title = #{artiTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="artiAuthor != null" >
+        arti_author = #{artiAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="artiDate != null" >
+        arti_date = #{artiDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="artiState != null" >
+        arti_state = #{artiState,jdbcType=BIT},
+      </if>
+      <if test="artiContent != null" >
+        arti_content = #{artiContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where arti_id = #{artiId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="swust.edu.cn.postdoctors.model.Article" >
+    update article
+    set arti_colmId = #{artiColmid,jdbcType=INTEGER},
+      arti_title = #{artiTitle,jdbcType=VARCHAR},
+      arti_author = #{artiAuthor,jdbcType=VARCHAR},
+      arti_date = #{artiDate,jdbcType=TIMESTAMP},
+      arti_state = #{artiState,jdbcType=BIT},
+      arti_content = #{artiContent,jdbcType=LONGVARCHAR}
+    where arti_id = #{artiId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="swust.edu.cn.postdoctors.model.Article" >
+    update article
+    set arti_colmId = #{artiColmid,jdbcType=INTEGER},
+      arti_title = #{artiTitle,jdbcType=VARCHAR},
+      arti_author = #{artiAuthor,jdbcType=VARCHAR},
+      arti_date = #{artiDate,jdbcType=TIMESTAMP},
+      arti_state = #{artiState,jdbcType=BIT}
+    where arti_id = #{artiId,jdbcType=INTEGER}
+  </update>
+</mapper>

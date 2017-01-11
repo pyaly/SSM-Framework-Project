@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="swust.edu.cn.postdoctors.dao.AttachmentsMapper" >
+  <resultMap id="BaseResultMap" type="swust.edu.cn.postdoctors.model.Attachments" >
+    <id column="atta_id" property="attaId" jdbcType="INTEGER" />
+    <result column="atta_artiId" property="attaArtiid" jdbcType="INTEGER" />
+    <result column="atta_name" property="attaName" jdbcType="VARCHAR" />
+    <result column="atta_path" property="attaPath" jdbcType="VARCHAR" />
+    <result column="atta_servername" property="attaServername" jdbcType="VARCHAR" />
+    <result column="atta_type" property="attaType" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="swust.edu.cn.postdoctors.model.Attachments" extends="BaseResultMap" >
+    <result column="atta_note" property="attaNote" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    atta_id, atta_artiId, atta_name, atta_path, atta_servername, atta_type
+  </sql>
+  <sql id="Blob_Column_List" >
+    atta_note
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from attachments
+    where atta_id = #{attaId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from attachments
+    where atta_id = #{attaId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="swust.edu.cn.postdoctors.model.Attachments" >
+    insert into attachments (atta_id, atta_artiId, atta_name, 
+      atta_path, atta_servername, atta_type, 
+      atta_note)
+    values (#{attaId,jdbcType=INTEGER}, #{attaArtiid,jdbcType=INTEGER}, #{attaName,jdbcType=VARCHAR}, 
+      #{attaPath,jdbcType=VARCHAR}, #{attaServername,jdbcType=VARCHAR}, #{attaType,jdbcType=VARCHAR}, 
+      #{attaNote,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="swust.edu.cn.postdoctors.model.Attachments" >
+    insert into attachments
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="attaId != null" >
+        atta_id,
+      </if>
+      <if test="attaArtiid != null" >
+        atta_artiId,
+      </if>
+      <if test="attaName != null" >
+        atta_name,
+      </if>
+      <if test="attaPath != null" >
+        atta_path,
+      </if>
+      <if test="attaServername != null" >
+        atta_servername,
+      </if>
+      <if test="attaType != null" >
+        atta_type,
+      </if>
+      <if test="attaNote != null" >
+        atta_note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="attaId != null" >
+        #{attaId,jdbcType=INTEGER},
+      </if>
+      <if test="attaArtiid != null" >
+        #{attaArtiid,jdbcType=INTEGER},
+      </if>
+      <if test="attaName != null" >
+        #{attaName,jdbcType=VARCHAR},
+      </if>
+      <if test="attaPath != null" >
+        #{attaPath,jdbcType=VARCHAR},
+      </if>
+      <if test="attaServername != null" >
+        #{attaServername,jdbcType=VARCHAR},
+      </if>
+      <if test="attaType != null" >
+        #{attaType,jdbcType=VARCHAR},
+      </if>
+      <if test="attaNote != null" >
+        #{attaNote,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="swust.edu.cn.postdoctors.model.Attachments" >
+    update attachments
+    <set >
+      <if test="attaArtiid != null" >
+        atta_artiId = #{attaArtiid,jdbcType=INTEGER},
+      </if>
+      <if test="attaName != null" >
+        atta_name = #{attaName,jdbcType=VARCHAR},
+      </if>
+      <if test="attaPath != null" >
+        atta_path = #{attaPath,jdbcType=VARCHAR},
+      </if>
+      <if test="attaServername != null" >
+        atta_servername = #{attaServername,jdbcType=VARCHAR},
+      </if>
+      <if test="attaType != null" >
+        atta_type = #{attaType,jdbcType=VARCHAR},
+      </if>
+      <if test="attaNote != null" >
+        atta_note = #{attaNote,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where atta_id = #{attaId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="swust.edu.cn.postdoctors.model.Attachments" >
+    update attachments
+    set atta_artiId = #{attaArtiid,jdbcType=INTEGER},
+      atta_name = #{attaName,jdbcType=VARCHAR},
+      atta_path = #{attaPath,jdbcType=VARCHAR},
+      atta_servername = #{attaServername,jdbcType=VARCHAR},
+      atta_type = #{attaType,jdbcType=VARCHAR},
+      atta_note = #{attaNote,jdbcType=LONGVARCHAR}
+    where atta_id = #{attaId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="swust.edu.cn.postdoctors.model.Attachments" >
+    update attachments
+    set atta_artiId = #{attaArtiid,jdbcType=INTEGER},
+      atta_name = #{attaName,jdbcType=VARCHAR},
+      atta_path = #{attaPath,jdbcType=VARCHAR},
+      atta_servername = #{attaServername,jdbcType=VARCHAR},
+      atta_type = #{attaType,jdbcType=VARCHAR}
+    where atta_id = #{attaId,jdbcType=INTEGER}
+  </update>
+</mapper>

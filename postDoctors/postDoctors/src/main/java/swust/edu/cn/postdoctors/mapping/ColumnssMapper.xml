@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="swust.edu.cn.postdoctors.dao.ColumnssMapper" >
+  <resultMap id="BaseResultMap" type="swust.edu.cn.postdoctors.model.Columnss" >
+    <id column="colm_id" property="colmId" jdbcType="INTEGER" />
+    <result column="colm_name" property="colmName" jdbcType="VARCHAR" />
+    <result column="colm_type" property="colmType" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="swust.edu.cn.postdoctors.model.Columnss" extends="BaseResultMap" >
+    <result column="colm_note" property="colmNote" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    colm_id, colm_name, colm_type
+  </sql>
+  <sql id="Blob_Column_List" >
+    colm_note
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from columnss
+    where colm_id = #{colmId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from columnss
+    where colm_id = #{colmId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="swust.edu.cn.postdoctors.model.Columnss" >
+    insert into columnss (colm_id, colm_name, colm_type, 
+      colm_note)
+    values (#{colmId,jdbcType=INTEGER}, #{colmName,jdbcType=VARCHAR}, #{colmType,jdbcType=INTEGER}, 
+      #{colmNote,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="swust.edu.cn.postdoctors.model.Columnss" >
+    insert into columnss
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="colmId != null" >
+        colm_id,
+      </if>
+      <if test="colmName != null" >
+        colm_name,
+      </if>
+      <if test="colmType != null" >
+        colm_type,
+      </if>
+      <if test="colmNote != null" >
+        colm_note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="colmId != null" >
+        #{colmId,jdbcType=INTEGER},
+      </if>
+      <if test="colmName != null" >
+        #{colmName,jdbcType=VARCHAR},
+      </if>
+      <if test="colmType != null" >
+        #{colmType,jdbcType=INTEGER},
+      </if>
+      <if test="colmNote != null" >
+        #{colmNote,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="swust.edu.cn.postdoctors.model.Columnss" >
+    update columnss
+    <set >
+      <if test="colmName != null" >
+        colm_name = #{colmName,jdbcType=VARCHAR},
+      </if>
+      <if test="colmType != null" >
+        colm_type = #{colmType,jdbcType=INTEGER},
+      </if>
+      <if test="colmNote != null" >
+        colm_note = #{colmNote,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where colm_id = #{colmId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="swust.edu.cn.postdoctors.model.Columnss" >
+    update columnss
+    set colm_name = #{colmName,jdbcType=VARCHAR},
+      colm_type = #{colmType,jdbcType=INTEGER},
+      colm_note = #{colmNote,jdbcType=LONGVARCHAR}
+    where colm_id = #{colmId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="swust.edu.cn.postdoctors.model.Columnss" >
+    update columnss
+    set colm_name = #{colmName,jdbcType=VARCHAR},
+      colm_type = #{colmType,jdbcType=INTEGER}
+    where colm_id = #{colmId,jdbcType=INTEGER}
+  </update>
+</mapper>
